@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaChevronUp } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 
 import { Data } from "./Data";
+import { AppContex } from "./useContex";
 function Content() {
+  const contexValue = useContext(AppContex)
   const [data, setData] = useState(Data);
   const clickHandler = () => {
     setData([]);
@@ -23,8 +25,9 @@ function Content() {
         return item;
       }
     });
-
+    contexValue.setBadgeCount(contexValue.badgeCount = contexValue.badgeCount + 1 )
     setData(newItem);
+    
   };
   const decrementCounter = (id) => {
     const decrementValue = data.map((item) => {
@@ -34,6 +37,7 @@ function Content() {
         return item;
       }
     });
+    contexValue.setBadgeCount(contexValue.badgeCount = contexValue.badgeCount - 1)
     setData(decrementValue);
   };
   let total = data.reduce((acc,curr)=>{
